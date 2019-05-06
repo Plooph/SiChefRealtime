@@ -22,3 +22,11 @@ data class Receta(
     var ingredientes: String = "",
     var comensales: String = "",
     var preparacion: String = ""):Serializable
+
+data class RecetaAux(
+    var id: String = "",
+    var user: User = User(),
+    var title: String = "",
+    var ingredientes: String = "",
+    var comensales: String = "",
+    var preparacion: String = ""):Serializable

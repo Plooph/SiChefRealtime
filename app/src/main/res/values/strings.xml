@@ -21,4 +21,10 @@
     <string name="los_ingredientes">Los ingredientes:</string>
     <string name="preparaci_n">Preparación</string>
     <string name="autor_de_la_receta">Autor de la receta:</string>
+    <string name="info">A cerca de...</string>
+    <string name="nick">nick?</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="libro_de_recetas">Libro de Recetas</string>
 </resources>

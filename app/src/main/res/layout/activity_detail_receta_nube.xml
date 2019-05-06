@@ -11,6 +11,19 @@
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
             <TextView
+                    android:text="@string/autor_de_la_receta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView"
+                    android:textSize="24sp"/>
+            <TextView
+                    android:text="@{receta.user.email}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView9"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="24sp"/>
+            <TextView
                     android:text="@string/titulo_de_la_receta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

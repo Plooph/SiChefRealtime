@@ -5,16 +5,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.rownuberecetas.view.*
 import kotlinx.android.synthetic.main.rowrecetas.view.*
-import net.pableras.sichef.models.Receta
+import kotlinx.android.synthetic.main.rowrecetas.view.tvComensales
 import net.pableras.sichef.models.RecetaAux
 
-/**
- * Created by pacopulido on 9/10/18.
- */
-class CustomAdapterRecetas(val context: Context,
-                           val layout: Int
-                    ) : RecyclerView.Adapter<CustomAdapterRecetas.ViewHolder>() {
+class CustomAdapterNube (val context: Context,
+                         val layout: Int) : RecyclerView.Adapter<CustomAdapterNube.ViewHolder>() {
 
     private var dataList: List<RecetaAux> = emptyList()
 
@@ -43,17 +40,11 @@ class CustomAdapterRecetas(val context: Context,
         fun bind(dataItem: RecetaAux){
             // itemview es el item de diseño
             // al que hay que poner los datos del objeto dataItem
-            itemView.tvTitle.text = dataItem.title
-            itemView.tvComensales.text = dataItem.comensales
+            itemView.tvTitleNube.text = dataItem.title
+            itemView.tvComensalesNube.text = dataItem.comensales
+            itemView.tvUserNube.text = dataItem.user.email
             itemView.tag = dataItem
 
-
-//            val id = context.resources.getIdentifier(dataItem.foto,"drawable",context.packageName)
-//            itemView.ivrow.setImageResource(id)
-            // Si la foto viene de Internet
-            // implementation 'com.squareup.picasso:picasso:2.5.2'
-            // Picasso.with(context).load(dataItem.foto).into(itemView.ivRow)
-            //itemView.setTag(dataItem)
         }
 
     }
