@@ -17,6 +17,7 @@ Esta activity se dedica a Registrar a los nuevos usuarios
 
 @Suppress("UNREACHABLE_CODE")
 class SingActivity : AppCompatActivity() {
+
     companion object {
         const val TAG = "pableras"
     }

@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -26,6 +27,7 @@ import net.pableras.sichef.views.nube.NubeActivity
 import net.pableras.sichef.views.recetas.DetailRecetaActivity
 import net.pableras.sichef.views.recetas.RecetActivity
 import org.jetbrains.anko.longToast
+import org.jetbrains.anko.toast
 
 /*
 Hay que guardar el usuario en un shareprefent para mantenerlo en local y disponer de los datos
@@ -67,6 +69,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             receta = intent.getSerializableExtra("receta") as Receta
         }
 
+        readUsers(user)
+
         //inicializa el arrayList de recetas
         recetas = ArrayList()
 
@@ -78,6 +82,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         readRecetas(user)
         showRecet()
     }
+
     /***************************** NUEVA RECETA ********************************/
     private fun createReceta(user: User) {
         val intent = Intent(this, RecetActivity::class.java)
@@ -201,4 +206,58 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         startActivity(intent)
     }
     /***************************** RECETAS PUBLICAS ********************************/
+
+    /***************************** USUARIO BASEDEDATOS ********************************/
+
+    private fun readUsers(user: User) {
+        //Optine la referencia del firebase -> recetas (nombre donde se almacenan los datos)
+        ref = FirebaseDatabase.getInstance().getReference("users")
+        //Se pone a la escucha de eventos
+        ref.addValueEventListener(object : ValueEventListener {
+
+            override fun onCancelled(p0: DatabaseError) {}
+            //cuando cambia los datos se actualiza
+            override fun onDataChange(users: DataSnapshot) {
+                if (users.exists()){
+
+                    if (existeUser(users)){
+                        saveUser(user)
+                    }else{
+                        Log.d("pablerasuser", "el ${user.email} estaba guardado")
+                    }
+
+                }else{
+                    toast("NO EXISTEN USUARIOS")
+                }
+            }
+        })
+    }
+    fun saveUser(user: User) {
+        Log.d("pablerasusers", "el ${user.email} ha sido guardado")
+        ref = FirebaseDatabase.getInstance().getReference("users")
+        ref.child(user.uid).setValue(user).addOnCompleteListener {
+            toast("Usuario guardado correctamente")
+        }
+    }
+
+    fun existeUser(users: DataSnapshot): Boolean {
+        val usersAL: ArrayList<User> = ArrayList()
+
+        for (userdb in users.children){
+            val usersdb = userdb.getValue(User::class.java)
+            if (usersdb != null) {
+                usersAL.add(usersdb)
+            }
+        }
+        for (i in 0 until usersAL.size){
+            if (user.email != usersAL[i].email){
+                Log.d("pablerasuser", "el ${user.email} no coincide")
+            }else{
+                Log.d("pablerasuser", "el ${user.email} coincide")
+                return false
+            }
+        }
+        return true
+    }
+    /***************************** USUARIO BASEDEDATOS ********************************/
 }
