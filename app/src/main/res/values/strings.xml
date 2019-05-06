@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">SiChef</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="sing_in">Sing-In</string>
+    <string name="user_new">Soy Nuevo</string>
+    <string name="password">Password</string>
+    <string name="user_name">User Email</string>
+    <string name="am_am">ÑAM ÑAM</string>
+    <string name="logout">LogOut</string>
+    <string name="titulo">Titulo</string>
+    <string name="categoria">Categoria</string>
+    <string name="como_se_prepara">Como se prepara:</string>
+    <string name="guardar">Guardar</string>
+    <string name="ingredientes">Ingredientes:</string>
+    <string name="que_necesitaremos">Que necesitaremos</string>
+    <string name="cuantos_comensales">Cuantos comensales</string>
+    <string name="como_se_llama_la_receta">Dale nombre a tu obra</string>
+    <string name="tu_obra_maestra">Tu obra maestra</string>
+    <string name="titulo_de_la_receta">Titulo de la Receta:</string>
+    <string name="comensales_mesa">Comensales a la mesa:</string>
+    <string name="los_ingredientes">Los ingredientes:</string>
+    <string name="preparaci_n">Preparación</string>
+    <string name="autor_de_la_receta">Autor de la receta:</string>
+</resources>
