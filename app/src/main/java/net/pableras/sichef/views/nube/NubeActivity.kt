@@ -20,6 +20,7 @@ import org.jetbrains.anko.toast
 class NubeActivity : AppCompatActivity() {
 
     private lateinit var user: User
+    private lateinit var recetas: ArrayList<Receta>
     private lateinit var recetasAux: ArrayList<RecetaAux>
     private lateinit var ref: DatabaseReference
     private lateinit var adapter: CustomAdapterNube
@@ -46,14 +47,44 @@ class NubeActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.exists()){
                     //Para evitar que pinte dos veces el array
+                    recetas = ArrayList()
                     recetasAux = ArrayList()
                     for (recet in p0.children){
                         val receta = recet.getValue(Receta::class.java)
                         if (receta!!.uid != user.uid){
-                            //if (receta != null) {
-                            val recetaAux = recet.getValue(RecetaAux::class.java)
-                            recetaAux!!.user = user
-                            recetasAux.add(recetaAux)
+                            val nreceta = recet.getValue(Receta::class.java)
+                            recetas.add(nreceta!!)
+                            val auxRecet = recet.getValue(RecetaAux::class.java)
+                            recetasAux.add(auxRecet!!)
+                        }
+                    }
+                    userReceta(recetas)
+                }else {
+                    longToast("NO HAY RECETAS PUBLICADAS")
+                }
+            }
+        })
+    }
+    /***************************** LEE LAS RECETA ********************************/
+
+    /***************************** LEE LOS USUARIOS ********************************/
+    fun userReceta(recetas: ArrayList<Receta>){
+
+        ref = FirebaseDatabase.getInstance().getReference("users")
+
+        ref.addValueEventListener(object : ValueEventListener {
+
+            override fun onCancelled(p0: DatabaseError) {}
+            //cuando cambia los datos se actualiza
+            override fun onDataChange(p0: DataSnapshot) {
+                if (p0.exists()){
+                    user = User()
+                    for (user in p0.children){
+                        val autor = user.getValue(User::class.java)
+                        for (i in 0 until recetas.size) {
+                            if (recetas[i].uid == autor!!.uid) {
+                                recetasAux[i].user = autor
+                            }
                         }
                     }
                     pintarAdapter(recetasAux)
@@ -62,8 +93,9 @@ class NubeActivity : AppCompatActivity() {
                 }
             }
         })
+
     }
-    /***************************** LEE LAS RECETA ********************************/
+    /***************************** LEE LOS USUARIOS ********************************/
 
     /***************************** PINTA LAS RECETA ********************************/
     private fun showRecet() {
